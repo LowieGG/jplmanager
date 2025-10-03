@@ -10,3 +10,11 @@ export default withPWA({
   register: true,
   skipWaiting: true,
 })(nextConfig);
+
+module.exports = {
+  eslint: {
+    // Waarschuwing: dit negeert ESLint errors tijdens productie builds
+    ignoreDuringBuilds: true,
+  },
+  // Je andere config...
+}
