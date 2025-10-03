@@ -2,10 +2,12 @@ import { NextResponse } from 'next/server';
 import { connectDB } from '@/lib/mongodb';
 import Score from '@/models/Score';
 
-export async function GET(_: Request, { params }: { params: { id: string } }) {
+export async function GET(_: Request, { params }: { params: Promise<{ id: string }> }) {
   await connectDB();
 
-  const scores = await Score.find({ competition: params.id })
+  const { id } = await params; // await de params
+
+  const scores = await Score.find({ competition: id })
     .populate('user', 'name email')
     .sort({ points: -1 });
 
